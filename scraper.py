@@ -51,26 +51,20 @@ class Scraper:
             self.driver.quit()
 
     def get_lions_urls(self):
-        with open('Crypto.com NFT _ Loaded Lions.htm', 'r') as f:
-            page = f.read()
-        soup = BeautifulSoup(page, 'lxml')
-        lion_cards = soup.find_all('div', class_='css-seeu1x')
-        urls = []
-        for lion_card in lion_cards:
-            lion_url = lion_card.find('a').get('href')
-            urls.append(lion_url)
+        with open('LionsUrls.txt', 'r') as f:
+            urls = json.load(f)
 
         return urls
 
-    def get_lions_txt(self):
-        with open('LionsFound1.txt', 'r') as f:
-            lions = f.readlines()
-        accept_numbers = []
-        for lion in lions:
-            if "not found" not in lion:
-                accept_numbers.append(lion.split('#')[1].split(' ')[0])
-
-        return accept_numbers
+    # def get_lions_txt(self):
+    #     with open('LionsFound1.txt', 'r') as f:
+    #         lions = f.readlines()
+    #     accept_numbers = []
+    #     for lion in lions:
+    #         if "not found" not in lion:
+    #             accept_numbers.append(lion.split('#')[1].split(' ')[0])
+    #
+    #     return accept_numbers
 
     def get_properties(self):
         properties_box = WebDriverWait(self.driver, 30).until(
