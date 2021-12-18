@@ -19,6 +19,7 @@ class Scraper:
         self.lion_datas = []
         options = ChromeOptions()
         options.add_argument("--start-maximized")
+        options.add_argument("--headless")
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_experimental_option('useAutomationExtension', False)
         options.add_argument("--disable-blink-features=AutomationControlled")
@@ -31,6 +32,7 @@ class Scraper:
             self.load_website()
             self.accept_cookies()
             self.properties = self.get_properties()
+            print(f'Properties is: {self.properties}')
             # numbers_list = self.get_lions_txt()
             # for i in numbers_list:
             #     if int(i) > 7412:
@@ -178,9 +180,10 @@ class Scraper:
             #         'attributes': properties,
             #         'link': chain_details_url,
             #         }
+            print("Data is: ", data)
             self.lion_datas.append(data)
-        except:
-            pass
+        except Exception as ex:
+            print(f'Exception in scraping leon: {ex}')
 
     def load_website(self):
         # self.driver.get("https://crypto.com/nft/collection/82421cf8e15df0edcaa200af752a344f?sort=salePrice&order=ASC")
